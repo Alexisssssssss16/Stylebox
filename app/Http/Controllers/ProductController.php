@@ -39,6 +39,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:100',
             'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
             'cost' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -46,7 +47,14 @@ class ProductController extends Controller
             'status' => 'boolean',
         ]);
 
-        Product::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $data['image'] = $path;
+        }
+
+        Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Producto registrado exitosamente.');
     }
@@ -68,6 +76,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:100',
             'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
             'cost' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -75,7 +84,14 @@ class ProductController extends Controller
             'status' => 'boolean',
         ]);
 
-        $product->update($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $data['image'] = $path;
+        }
+
+        $product->update($data);
 
         return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente.');
     }

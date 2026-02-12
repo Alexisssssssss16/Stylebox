@@ -21,9 +21,8 @@
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark"
                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="mdo"
-                        width="32" height="32" class="rounded-circle me-2">
-                    <span class="d-none d-md-inline small fw-bold">Admin</span>
+                    <div class="user-avatar small bg-primary text-white">{{ substr(auth()->user()->name, 0, 2) }}</div>
+                    <span class="d-none d-md-block text-dark small fw-medium">{{ auth()->user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="dropdownUser1">
                     <li><a class="dropdown-item small" href="#"><i class="fas fa-user-circle me-2"></i>Perfil</a></li>
@@ -31,7 +30,8 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item small text-danger" href="#"><i
+                    <li><a class="dropdown-item small text-danger" href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                                 class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a></li>
                 </ul>
             </div>
